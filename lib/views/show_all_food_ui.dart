@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_food_log_app/models/food.dart';
 import 'package:flutter_food_log_app/services/supabase_service.dart';
 import 'package:flutter_food_log_app/views/add_food_ui.dart';
+import 'package:flutter_food_log_app/views/update_del_food_ui.dart';
 
 class ShowAllFoodUi extends StatefulWidget {
   const ShowAllFoodUi({super.key});
@@ -76,7 +77,20 @@ class _ShowAllFoodUiState extends State<ShowAllFoodUi> {
                       bottom: 5,
                     ),
                     child: ListTile(
-                      onTap: () {},
+                      onTap: () {
+                        //เปิดไปหน้า UpdateDelFoodUi แบบย้อนกลับได้
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => UpdateDelFoodUi(
+                              food: foods[index],
+                            ),
+                          ),
+                        ).then((value) {
+                          //เรียก loadAllFood() เพื่อรีเฟรชข้อมูลในหน้า ShowAllFoodUi หลังจากกลับมาจากหน้า UpdateDelFoodUi
+                          loadAllFood();
+                        });
+                      },
                       leading: Image.asset(
                         'assets/images/food.png',
                       ),
